@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+
+void main() {
+ runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+ @override
+ Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Kalkulator BBM'),
+        ),
+        body: KalkulatorBBM(),
+      ),
+    );
+ }
+}
+
+class KalkulatorBBM extends StatefulWidget {
+ @override
+ _KalkulatorBBMState createState() => _KalkulatorBBMState();
+}
+
+class _KalkulatorBBMState extends State<KalkulatorBBM> {
+ String kotaTujuan;
+ int jarak;
+ String pilihanBBM;
+ String pilihanKendaraan;
+
+ @override
+ Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                kotaTujuan = value;
+              });
+            },
+            decoration: InputDecoration(
+              labelText: 'Kota Tujuan',
+            ),
+          ),
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                jarak = int.parse(value);
+              });
+            },
+            decoration: InputDecoration(
+              labelText: 'Jarak',
+            ),
+          ),
+          DropdownButton<String>(
+            value: pilihanBBM,
+            onChanged: (String newValue) {
+              setState(() {
+                pilihanBBM = newValue;
+              });
+            },
+            items: <String>['Pertalite', 'Pertamax', 'Solar']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          DropdownButton<String>(
+            value: pilihanKendaraan,
+            onChanged: (String newValue) {
+              setState(() {
+                pilihanKendaraan = newValue;
+              });
+            },
+            items: <String>['Avanza', 'Xenia', 'Sigra', 'Brio']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+          RaisedButton(
+            onPressed: () {
+              // Hitung dan tampilkan hasil pemrosesan di sini
+            },
+            child: Text('Hitung BBM'),
+          ),
+        ],
+      ),
+    );
+ }
+}
